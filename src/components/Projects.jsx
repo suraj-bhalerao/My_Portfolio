@@ -105,11 +105,11 @@ const Projects = ({ username }) => {
                   </a>
                 </div>
                 
-                <p style={{ color: '#ccc', marginBottom: '1.5rem', flex: 1, fontSize: '0.9rem', lineHeight: '1.6' }}>
+                <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', flex: 1, fontSize: '0.9rem', lineHeight: '1.6' }}>
                   {repo.description}
                 </p>
                 
-                <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem', color: '#888', marginTop: 'auto' }}>
+                <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem', color: 'var(--text-muted)', marginTop: 'auto' }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <div style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--secondary-color)' }}></div>
                     {repo.language}

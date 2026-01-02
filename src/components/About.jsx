@@ -2,17 +2,17 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section id="about" className="section" style={{ background: 'linear-gradient(180deg, transparent, rgba(112, 0, 255, 0.05), transparent)' }}>
+    <section id="about" className="section" style={{ background: 'linear-gradient(180deg, transparent, var(--glass-bg), transparent)' }}>
       <div className="container">
         <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>About Me</h2>
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
           <div className="glass-card">
             <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--primary-color)' }}>My Journey</h3>
-            <p style={{ color: '#ccc', marginBottom: '1rem' }}>
+            <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>
               I am a passionate Automation Test Engineer with a strong background in ensuring software quality through robust testing frameworks. My expertise lies in designing and executing automated test scripts to enhance product reliability.
             </p>
-            <p style={{ color: '#ccc' }}>
+            <p style={{ color: 'var(--text-secondary)' }}>
               I specialize in building scalable automation solutions using tools like Selenium, Appium, and Cypress. I am dedicated to integrating continuous testing into CI/CD pipelines to deliver high-quality software at speed.
             </p>
           </div>

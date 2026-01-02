@@ -2,6 +2,8 @@
   /* Default Dark Theme */
   --bg-color: #0a0a0a;
   --text-color: #ffffff;
+  --text-secondary: #ccc;
+  --text-muted: #888;
   --primary-color: #00f2ff;
   --secondary-color: #7000ff;
   --accent-color: #ff0055;
@@ -14,10 +16,12 @@
 [data-theme='light'] {
   --bg-color: #f0f2f5;
   --text-color: #1a1a1a;
+  --text-secondary: #444;
+  --text-muted: #666;
   --primary-color: #0070f3;
   --secondary-color: #7928ca;
   --accent-color: #ff0080;
-  --glass-bg: rgba(255, 255, 255, 0.9); /* Increased opacity for better contrast */
+  --glass-bg: rgba(255, 255, 255, 0.9);
   --glass-border: rgba(0, 0, 0, 0.1);
   --card-bg: rgba(255, 255, 255, 0.95);
 }

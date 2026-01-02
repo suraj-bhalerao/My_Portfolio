@@ -13,7 +13,7 @@ const Contact = () => {
               <div style={{ 
                 width: '60px', 
                 height: '60px', 
-                background: 'rgba(255,255,255,0.05)', 
+                background: 'var(--glass-bg)', 
                 borderRadius: '50%', 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -24,7 +24,7 @@ const Contact = () => {
                 <Mail size={24} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.1rem', color: '#888', marginBottom: '0.2rem' }}>Email</h3>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Email</h3>
                 <a href="mailto:bhaleraosurajsa@gmail.com" style={{ fontSize: '1.2rem', color: 'var(--text-color)' }}>bhaleraosurajsa@gmail.com</a>
               </div>
             </div>
@@ -33,7 +33,7 @@ const Contact = () => {
               <div style={{ 
                 width: '60px', 
                 height: '60px', 
-                background: 'rgba(255,255,255,0.05)', 
+                background: 'var(--glass-bg)', 
                 borderRadius: '50%', 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -44,7 +44,7 @@ const Contact = () => {
                 <Phone size={24} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.1rem', color: '#888', marginBottom: '0.2rem' }}>Phone</h3>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Phone</h3>
                 <a href="tel:+919730922327" style={{ fontSize: '1.2rem', color: 'var(--text-color)' }}>+91 9730922327</a>
               </div>
             </div>
@@ -53,7 +53,7 @@ const Contact = () => {
               <div style={{ 
                 width: '60px', 
                 height: '60px', 
-                background: 'rgba(255,255,255,0.05)', 
+                background: 'var(--glass-bg)', 
                 borderRadius: '50%', 
                 display: 'flex', 
                 alignItems: 'center', 
@@ -64,7 +64,7 @@ const Contact = () => {
                 <MapPin size={24} />
               </div>
               <div>
-                <h3 style={{ fontSize: '1.1rem', color: '#888', marginBottom: '0.2rem' }}>Location</h3>
+                <h3 style={{ fontSize: '1.1rem', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Location</h3>
                 <p style={{ fontSize: '1.2rem' }}>Pune, Maharashtra</p>
               </div>
             </div>

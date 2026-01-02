@@ -1,11 +1,12 @@
 import React from 'react';
 import useLeetCode from '../hooks/useLeetCode';
+import useGitHubStats from '../hooks/useGitHubStats';
 
-const Stats = ({ username }) => {
-  const { stats, loading, error } = useLeetCode(username);
+const Stats = ({ githubUsername, leetcodeUsername }) => {
+  const { stats: leetStats, loading: leetLoading } = useLeetCode(leetcodeUsername);
+  const { stats: gitStats, loading: gitLoading } = useGitHubStats(githubUsername);
 
-  // Fallback data if API fails
-  const fallbackStats = {
+  const fallbackLeet = {
     totalSolved: 450,
     easySolved: 150,
     totalEasy: 500,
@@ -16,97 +17,124 @@ const Stats = ({ username }) => {
     ranking: '125,430'
   };
 
-  const displayStats = (stats && stats.status !== 'error') ? stats : fallbackStats;
+  const displayLeet = (leetStats && leetStats.status !== 'error') ? leetStats : fallbackLeet;
+
+  // GitHub contribution colors (matching GitHub's theme)
+  const getContributionColor = (level) => {
+    // level is 0-4
+    const colors = {
+      dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+      light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+    };
+    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+    return colors[theme][level] || colors[theme][0];
+  };
 
   return (
     <section id="stats" className="section">
       <div className="container">
         <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>Coding Stats</h2>
         
-        {loading && <div className="text-center" style={{ color: '#888' }}>Loading stats from LeetCode...</div>}
+        {(leetLoading || gitLoading) && <div className="text-center" style={{ color: '#888', marginBottom: '2rem' }}>Loading stats...</div>}
 
-        <div className="glass-card" style={{ maxWidth: '900px', margin: '0 auto', padding: '3rem' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '2rem', textAlign: 'center' }}>
-            
-            <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'rgba(255,255,255,0.02)' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#888', marginBottom: '0.5rem' }}>Total Solved</h3>
-              <div style={{ fontSize: '3.5rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{displayStats.totalSolved}</div>
-            </div>
-
-            <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'rgba(255,255,255,0.02)' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#00b8a3', marginBottom: '0.5rem' }}>Easy</h3>
-              <div style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{displayStats.easySolved}</div>
-              <div style={{ fontSize: '0.9rem', color: '#888' }}>/ {displayStats.totalEasy}</div>
-            </div>
-
-            <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'rgba(255,255,255,0.02)' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#ffc01e', marginBottom: '0.5rem' }}>Medium</h3>
-              <div style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{displayStats.mediumSolved}</div>
-              <div style={{ fontSize: '0.9rem', color: '#888' }}>/ {displayStats.totalMedium}</div>
-            </div>
-
-            <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'rgba(255,255,255,0.02)' }}>
-              <h3 style={{ fontSize: '1.2rem', color: '#ff375f', marginBottom: '0.5rem' }}>Hard</h3>
-              <div style={{ fontSize: '2.5rem', fontWeight: 'bold' }}>{displayStats.hardSolved}</div>
-              <div style={{ fontSize: '0.9rem', color: '#888' }}>/ {displayStats.totalHard}</div>
-            </div>
-
-          </div>
+        <div className="glass-card" style={{ maxWidth: '1000px', margin: '0 auto', padding: '2rem' }}>
           
-          
-          {/* GitHub-style Heatmap */}
-          <div style={{ marginTop: '4rem' }}>
-            <div className="glass-card" style={{ padding: '2rem', overflowX: 'auto' }}>
-              <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)', marginBottom: '1.5rem', textAlign: 'center' }}>Contribution Activity</h3>
-              
-              <div style={{ 
-                display: 'flex', 
-                gap: '4px', 
-                justifyContent: 'center',
-                minWidth: '600px' // Ensure scrolling on small screens
-              }}>
-                {/* Generate 52 weeks */}
-                {Array.from({ length: 52 }).map((_, weekIndex) => (
-                  <div key={weekIndex} style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    {/* Generate 7 days per week */}
-                    {Array.from({ length: 7 }).map((_, dayIndex) => {
-                      // Simulate activity levels: 0 (empty), 1 (low), 2 (medium), 3 (high), 4 (very high)
-                      const activityLevel = Math.random() > 0.7 ? Math.floor(Math.random() * 5) : 0;
-                      
-                      let bgColor = 'rgba(255, 255, 255, 0.05)'; // Default empty
-                      if (activityLevel === 1) bgColor = 'rgba(0, 242, 255, 0.2)';
-                      if (activityLevel === 2) bgColor = 'rgba(0, 242, 255, 0.4)';
-                      if (activityLevel === 3) bgColor = 'rgba(0, 242, 255, 0.7)';
-                      if (activityLevel === 4) bgColor = 'var(--primary-color)';
-
-                      return (
-                        <div key={dayIndex} style={{ 
-                          width: '12px', 
-                          height: '12px', 
-                          background: bgColor,
-                          borderRadius: '2px',
-                          transition: 'all 0.3s ease'
-                        }} title={`Activity Level: ${activityLevel}`}></div>
-                      );
-                    })}
+          {/* LeetCode Stats */}
+          <div style={{ marginBottom: '4rem' }}>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-color)', marginBottom: '1.5rem', textAlign: 'center' }}>
+              LeetCode Stats
+            </h3>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem', textAlign: 'center' }}>
+              <div className="stat-item" style={{ padding: '1.5rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'var(--card-bg)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <div style={{ position: 'relative', width: '100px', height: '100px', marginBottom: '1rem' }}>
+                  <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="var(--glass-border)" strokeWidth="8" />
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="var(--primary-color)" strokeWidth="8" 
+                      strokeDasharray={`${(displayLeet.totalSolved / displayLeet.totalQuestions) * 283} 283`}
+                      strokeLinecap="round"
+                      transform="rotate(-90 50 50)"
+                    />
+                  </svg>
+                  <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                    {displayLeet.totalSolved}
                   </div>
-                ))}
+                </div>
+                <h4 style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>Total Solved</h4>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '8px', marginTop: '1.5rem', fontSize: '0.85rem', color: '#888' }}>
-                <span>Less</span>
-                <div style={{ width: '12px', height: '12px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '2px' }}></div>
-                <div style={{ width: '12px', height: '12px', background: 'rgba(0, 242, 255, 0.2)', borderRadius: '2px' }}></div>
-                <div style={{ width: '12px', height: '12px', background: 'rgba(0, 242, 255, 0.4)', borderRadius: '2px' }}></div>
-                <div style={{ width: '12px', height: '12px', background: 'rgba(0, 242, 255, 0.7)', borderRadius: '2px' }}></div>
-                <div style={{ width: '12px', height: '12px', background: 'var(--primary-color)', borderRadius: '2px' }}></div>
-                <span>More</span>
+              <div style={{ display: 'grid', gap: '1rem' }}>
+                <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'var(--card-bg)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#00b8a3', fontWeight: 'bold' }}>Easy</span>
+                  <span style={{ fontWeight: 'bold' }}>{displayLeet.easySolved}<span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 'normal' }}> / {displayLeet.totalEasy}</span></span>
+                </div>
+                <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'var(--card-bg)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#ffc01e', fontWeight: 'bold' }}>Medium</span>
+                  <span style={{ fontWeight: 'bold' }}>{displayLeet.mediumSolved}<span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 'normal' }}> / {displayLeet.totalMedium}</span></span>
+                </div>
+                <div className="stat-item" style={{ padding: '1rem', border: '1px solid var(--glass-border)', borderRadius: '12px', background: 'var(--card-bg)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ color: '#ff375f', fontWeight: 'bold' }}>Hard</span>
+                  <span style={{ fontWeight: 'bold' }}>{displayLeet.hardSolved}<span style={{ color: 'var(--text-muted)', fontSize: '0.8rem', fontWeight: 'normal' }}> / {displayLeet.totalHard}</span></span>
+                </div>
               </div>
             </div>
           </div>
+          
+          {/* GitHub Heatmap */}
+          <div style={{ borderTop: '1px solid var(--glass-border)', paddingTop: '2rem' }}>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-color)', marginBottom: '1.5rem', textAlign: 'center' }}>
+              GitHub Contributions
+            </h3>
+            
+            <div style={{ 
+              display: 'flex', 
+              justifyContent: 'center',
+              width: '100%',
+              overflow: 'hidden',
+              padding: '0 10px'
+            }}>
+              <div style={{ 
+                display: 'grid', 
+                gridTemplateColumns: 'repeat(53, 1fr)', 
+                gap: '2px',
+                width: '100%',
+                maxWidth: '800px',
+                aspectRatio: '53 / 7'
+              }}>
+                {gitStats && gitStats.contributions ? (
+                  gitStats.contributions.slice(-371).map((day, index) => (
+                    <div 
+                      key={index} 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%',
+                        background: getContributionColor(day.level),
+                        borderRadius: '1px',
+                        transition: 'transform 0.2s'
+                      }}
+                      title={`${day.date}: ${day.count} contributions`}
+                      onMouseEnter={(e) => e.target.style.transform = 'scale(1.5)'}
+                      onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                    ></div>
+                  ))
+                ) : (
+                  Array.from({ length: 371 }).map((_, i) => (
+                    <div key={i} style={{ width: '100%', height: '100%', background: 'var(--glass-bg)', borderRadius: '1px' }}></div>
+                  ))
+                )}
+              </div>
+            </div>
 
-          <div style={{ marginTop: '3rem', textAlign: 'center' }}>
-            <p style={{ color: '#888', fontSize: '1.1rem' }}>Global Ranking: <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>{displayStats.ranking}</span></p>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '6px', marginTop: '1rem', fontSize: '0.75rem', color: '#888' }}>
+              <span>Less</span>
+              {[0, 1, 2, 3, 4].map(level => (
+                <div key={level} style={{ width: '10px', height: '10px', background: getContributionColor(level), borderRadius: '2px' }}></div>
+              ))}
+              <span>More</span>
+            </div>
+          </div>
+
+          <div style={{ marginTop: '2rem', textAlign: 'center' }}>
+            <p style={{ color: '#888', fontSize: '0.9rem' }}>LeetCode Global Ranking: <span style={{ color: 'var(--primary-color)', fontWeight: 'bold' }}>{displayLeet.ranking}</span></p>
           </div>
         </div>
       </div>

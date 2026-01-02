@@ -9,7 +9,7 @@ import Contact from './components/Contact';
 function App() {
   // Replace with your actual usernames
   const githubUsername = 'suraj-bhalerao'; 
-  const leetcodeUsername = 'suraj-bhalerao'; 
+  const leetcodeUsername = 'Suraj_b_27'; 
 
   return (
     <div className="app">
@@ -17,7 +17,7 @@ function App() {
       <Hero />
       <About />
       <Projects username={githubUsername} />
-      <Stats username={leetcodeUsername} />
+      <Stats githubUsername={githubUsername} leetcodeUsername={leetcodeUsername} />
       <Contact />
       
       <footer style={{ textAlign: 'center', padding: '2rem', borderTop: '1px solid var(--glass-border)', color: '#888' }}>

@@ -99,6 +99,21 @@ ul {
   background-clip: text;
 }
 
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 100px;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding-top: 80px;
+    padding-bottom: 20px;
+  }
+}
+
 /* Responsive Utilities */
 .grid-2 {
   display: grid;

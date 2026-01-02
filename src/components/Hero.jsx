@@ -5,7 +5,7 @@ import resumeFile from '../assets/Resume.pdf';
 
 const Hero = () => {
   return (
-    <section id="home" className="section" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: '100px' }}>
+    <section id="home" className="section hero-section">
       <div className="container grid-2">
         <div className="hero-content">
           <h2 style={{ fontSize: '1.5rem', color: 'var(--primary-color)', marginBottom: '1rem' }}>Hello, I'm</h2>

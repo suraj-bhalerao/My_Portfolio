@@ -27,10 +27,10 @@ const About = () => {
                 <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>My Journey</h3>
               </div>
               <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', fontSize: '1.05rem', lineHeight: '1.8' }}>
-                I am a dedicated **Automation Test Engineer** with a passion for building robust, scalable testing solutions. My journey is driven by a commitment to software excellence and a deep understanding of the automation lifecycle.
+                I am a dedicated Automation Test Engineer with a passion for building robust, scalable testing solutions. My journey is driven by a commitment to software excellence and a deep understanding of the automation lifecycle.
               </p>
               <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: '1.8' }}>
-                I specialize in architecting frameworks from scratch using **Java, Selenium, and Appium**, ensuring high-quality delivery through seamless **CI/CD integration**.
+                I specialize in architecting frameworks from scratch using Java, Selenium, and Appium, ensuring high-quality delivery through seamless CI/CD integration.
               </p>
             </div>
             

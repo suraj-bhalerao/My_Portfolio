@@ -14,7 +14,7 @@ const Contact = () => {
 
   // GOOGLE FORM CONFIGURATION
   // Replace these with your actual Google Form details
-  const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse';
+  const GOOGLE_FORM_ACTION_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfr0776F6LHIefktSkbus9nrvfpiviqHXnjRIN5jKOKlzZNew/formResponse';
   const ENTRY_IDS = {
     name: 'entry.123456789',
     email: 'entry.987654321',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, Mail, ArrowRight, Code2, Award, Clock } from 'lucide-react';
-import profileImage from '../assets/profile.jpg';
+import profileImage from '../assets/profile.png';
 import resumeFile from '../assets/Resume.pdf';
 import useLeetCode from '../hooks/useLeetCode';
 
@@ -152,9 +152,9 @@ const Hero = ({ leetcodeUsername }) => {
               borderRadius: '30px', 
               overflow: 'hidden',
               width: '100%',
-              maxWidth: '420px',
+              maxWidth: '380px',
               height: 'auto',
-              aspectRatio: '4 / 5',
+              aspectRatio: '1600 / 2656',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',

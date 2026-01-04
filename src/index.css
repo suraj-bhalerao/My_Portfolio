@@ -183,23 +183,25 @@ ul {
 @media (max-width: 768px) {
   .section {
     padding: 40px 0;
-  } /*ads*/
+  }
 
   .hero-section {
-    min-height: auto !important;
-    padding-top: 90px !important;
+    min-height: 100vh !important;
+    padding-top: 100px !important;
     padding-bottom: 60px !important;
-    display: block !important; /* Ensure padding-top works reliably on mobile */
+    display: flex !important;
+    align-items: center !important;
   }
 
   .grid-2 {
     grid-template-columns: 1fr;
     gap: 3rem;
-    text-align: center;
+    text-align: left;
   }
 
   .hero-content {
     order: 2;
+    padding: 0 5%;
   }
 
   .hero-image {
@@ -215,16 +217,16 @@ ul {
   }
 
   .hero-content p {
-    margin: 0 auto 2.5rem auto !important;
+    margin: 0 0 2.5rem 0 !important;
   }
 
   .hero-content div {
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .hero-image-card {
-    max-width: 280px !important;
-    margin: 0 auto;
+    max-width: 340px !important;
+    margin: 0 0 0 5%;
   }
 
   .desktop-menu {

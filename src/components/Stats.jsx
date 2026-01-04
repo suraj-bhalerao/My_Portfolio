@@ -33,7 +33,7 @@ const Stats = ({ githubUsername, leetcodeUsername }) => {
     <section id="stats" className="section" style={{ position: 'relative' }}>
       <div className="container">
         <div>
-          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>Coding Performance</h2>
+          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Coding Performance</h2>
 
           <div className="glass-card" style={{
             padding: '3rem',

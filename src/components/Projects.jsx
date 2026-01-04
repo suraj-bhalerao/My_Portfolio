@@ -78,16 +78,16 @@ const Projects = ({ username }) => {
     <section id="projects" className="section">
       <div className="container">
         <div>
-          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>Featured Projects</h2>
-          
+          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>Featured Projects</h2>
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2.5rem' }}>
             {projects.map((repo) => (
-              <div 
-                key={repo.id} 
-                className="glass-card" 
-                style={{ 
-                  display: 'flex', 
-                  flexDirection: 'column', 
+              <div
+                key={repo.id}
+                className="glass-card"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
                   height: '100%',
                   cursor: 'pointer',
                   overflow: 'hidden',
@@ -98,12 +98,12 @@ const Projects = ({ username }) => {
               >
                 <div style={{ height: '180px', overflow: 'hidden', position: 'relative' }}>
                   <img src={repo.image} alt={repo.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} className="project-img" />
-                  <div style={{ 
-                    position: 'absolute', 
-                    top: 0, 
-                    left: 0, 
-                    width: '100%', 
-                    height: '100%', 
+                  <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
                     background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.5))',
                     pointerEvents: 'none'
                   }} />
@@ -116,26 +116,26 @@ const Projects = ({ username }) => {
                       </div>
                       <h3 style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{repo.name}</h3>
                     </div>
-                    <a 
-                      href={repo.html_url} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={repo.html_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       style={{ color: 'var(--text-muted)', transition: 'color 0.3s' }}
                     >
                       <ExternalLink size={20} />
                     </a>
                   </div>
-                  
+
                   <p style={{ color: 'var(--text-secondary)', marginBottom: '1.5rem', flex: 1, fontSize: '0.95rem', lineHeight: '1.6' }}>
                     {repo.description}
                   </p>
-                  
+
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 'auto' }}>
-                    <span style={{ 
-                      display: 'flex', 
-                      alignItems: 'center', 
-                      gap: '8px', 
-                      fontSize: '0.85rem', 
+                    <span style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontSize: '0.85rem',
                       color: 'var(--text-muted)',
                       background: 'var(--glass-bg)',
                       padding: '4px 12px',

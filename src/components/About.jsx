@@ -3,7 +3,7 @@ import { Terminal, Cpu } from 'lucide-react';
 
 const About = () => {
   const skills = [
-    'Java', 'Python', 
+    'Java', 'Python',
     'Selenium WebDriver', 'TestNG', 'Page Object Model',
     'Postman', 'RestAssured',
     'Maven', 'GitHub Actions',
@@ -16,8 +16,8 @@ const About = () => {
     <section id="about" className="section" style={{ position: 'relative', overflow: 'hidden' }}>
       <div className="container">
         <div>
-          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>About Me</h2>
-          
+          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem' }}>About Me</h2>
+
           <div className="grid-2" style={{ alignItems: 'start' }}>
             <div className="glass-card" style={{ padding: '2.5rem', height: '100%' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem' }}>
@@ -33,21 +33,21 @@ const About = () => {
                 I specialize in architecting frameworks from scratch using Java, Selenium, and Appium, ensuring high-quality delivery through seamless CI/CD integration.
               </p>
             </div>
-            
+
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '1.5rem' }}>
                 <div style={{ padding: '8px', background: 'rgba(112, 0, 255, 0.1)', borderRadius: '10px', color: 'var(--secondary-color)' }}>
                   <Cpu size={24} />
                 </div>
                 <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>Technical Arsenal</h3>
               </div>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem', justifyContent: 'center' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.8rem' }}>
                 {skills.map((skill) => (
-                  <div 
-                    key={skill} 
-                    className="skill-card" 
-                    style={{ 
-                      padding: '0.8rem 1.2rem', 
+                  <div
+                    key={skill}
+                    className="skill-card"
+                    style={{
+                      padding: '0.8rem 1.2rem',
                       fontSize: '0.95rem',
                       fontWeight: '500',
                       color: 'var(--text-color)',

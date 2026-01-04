@@ -132,7 +132,7 @@ const Contact = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ textAlign: 'center', marginBottom: '5rem' }}
+          style={{ marginBottom: '5rem' }}
         >
           <h2 className="gradient-text" style={{
             fontSize: 'clamp(3rem, 6vw, 4rem)',
@@ -146,7 +146,7 @@ const Contact = () => {
             color: 'var(--text-secondary)',
             fontSize: '1.2rem',
             maxWidth: '700px',
-            margin: '0 auto',
+            margin: '0',
             lineHeight: '1.6'
           }}>
             Ready to elevate your software quality? Let's build something extraordinary together.
@@ -472,13 +472,11 @@ const Contact = () => {
         @media (max-width: 640px) {
           .glass-card {
             flex-direction: column;
-            text-align: center;
             padding: 1.5rem !important;
           }
           .glass-card > div {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 10px;
           }
           .contact-link {

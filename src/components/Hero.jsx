@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, ArrowRight, Code2, Award, Clock } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowRight, Code2 } from 'lucide-react';
 import profileImage from '../assets/profile.png';
 import resumeFile from '../assets/Resume.pdf';
 import useLeetCode from '../hooks/useLeetCode';
@@ -22,11 +22,7 @@ const Hero = ({ leetcodeUsername }) => {
     return () => clearInterval(timer);
   }, []);
 
-  const quickStats = [
-    { icon: <Clock size={16} />, label: 'Experience', value: 'Aug 2024 - Present' },
-    { icon: <Code2 size={16} />, label: 'Expertise', value: '15+ Tools' },
-    { icon: <Award size={16} />, label: 'LeetCode', value: leetStats?.totalSolved || '500+' }
-  ];
+
 
   return (
     <section id="home" className="section hero-section" style={{ position: 'relative', overflow: 'hidden' }}>
@@ -57,20 +53,7 @@ const Hero = ({ leetcodeUsername }) => {
             Crafting robust automation solutions to ensure software excellence. Expert in building scalable frameworks with Selenium, Appium, and Java, seamlessly integrated with modern CI/CD pipelines.
           </p>
 
-          {/* Quick Stats Row */}
-          <div style={{ display: 'flex', gap: '2rem', marginBottom: '3rem', flexWrap: 'wrap' }}>
-            {quickStats.map((stat, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ color: 'var(--primary-color)', background: 'var(--glass-bg)', padding: '8px', borderRadius: '10px', border: '1px solid var(--glass-border)' }}>
-                  {stat.icon}
-                </div>
-                <div>
-                  <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--text-color)' }}>{stat.value}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>{stat.label}</div>
-                </div>
-              </div>
-            ))}
-          </div>
+
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
@@ -110,8 +93,10 @@ const Hero = ({ leetcodeUsername }) => {
                 { icon: <Mail size={20} />, href: "mailto:bhaleraosurajsa@gmail.com", title: "Email" },
                 {
                   icon: (
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                      <path d="M13.483 0a1.374 1.374 0 0 0-.961.414l-11.71 11.593a1.384 1.384 0 0 0 0 1.98l1.113 1.1 a1.358 1.358 0 0 0 1.93 0l1.13-1.113a1.384 1.384 0 0 0 0-1.98l-1.13-1.113a1.358 1.358 0 0 0-1.93 0l-1.113 1.1a1.384 1.384 0 0 0 0 1.98l11.71 11.593a1.374 1.374 0 0 0 1.922 0l11.71-11.593a1.384 1.384 0 0 0 0-1.98L14.444.414a1.374 1.374 0 0 0-.961-.414zM12 14.4l-2.4-2.4 2.4-2.4 2.4 2.4-2.4 2.4z" />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
+                      <path d="M12 13h7.5" />
+                      <path d="M9.424 7.268l4.999 -4.999" />
+                      <path d="M16.633 16.644l-2.402 2.415a3.189 3.189 0 0 1 -4.524 0l-3.77 -3.787a3.223 3.223 0 0 1 0 -4.544l3.77 -3.787a3.189 3.189 0 0 1 4.524 0l2.302 2.313" />
                     </svg>
                   ),
                   href: "https://leetcode.com/Suraj_b_27",
@@ -152,9 +137,9 @@ const Hero = ({ leetcodeUsername }) => {
               borderRadius: '30px',
               overflow: 'hidden',
               width: '100%',
-              maxWidth: '380px',
+              maxWidth: '340px',
               height: 'auto',
-              aspectRatio: '1600 / 2656',
+              aspectRatio: '1 / 1.4',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -197,33 +182,7 @@ const Hero = ({ leetcodeUsername }) => {
         </div>
       </div>
 
-      {/* Scroll Indicator (Static) */}
-      <div style={{
-        position: 'absolute',
-        bottom: '30px',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '10px',
-        color: 'var(--text-muted)'
-      }}
-      >
-        <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Scroll</span>
-        <div style={{
-          width: '24px',
-          height: '40px',
-          border: '2px solid var(--glass-border)',
-          borderRadius: '12px',
-          display: 'flex',
-          justifyContent: 'center',
-          paddingTop: '6px'
-        }}
-        >
-          <div style={{ width: '4px', height: '8px', background: 'var(--primary-color)', borderRadius: '2px' }} />
-        </div>
-      </div>
+
     </section>
   );
 };

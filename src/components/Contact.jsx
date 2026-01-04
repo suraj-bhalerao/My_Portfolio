@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Phone, Send, Github, Linkedin, Twitter, MessageSquare, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, MessageSquare, CheckCircle2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Contact = () => {
@@ -81,11 +81,7 @@ const Contact = () => {
     }
   ];
 
-  const socials = [
-    { icon: <Github size={20} />, href: 'https://github.com/suraj-bhalerao', label: 'GitHub', color: '#333' },
-    { icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/in/suraj-bhalerao27', label: 'LinkedIn', color: '#0077b5' },
-    { icon: <Twitter size={20} />, href: '#', label: 'Twitter', color: '#1da1f2' }
-  ];
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -237,53 +233,7 @@ const Contact = () => {
               ))}
             </div>
 
-            <motion.div variants={itemVariants} style={{ padding: '0 1rem' }}>
-              <h3 style={{
-                fontSize: '1.3rem',
-                fontWeight: '800',
-                marginBottom: '2rem',
-                color: 'var(--text-color)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px'
-              }}>
-                <div style={{ width: '30px', height: '2px', background: 'var(--primary-color)' }} />
-                Connect with me
-              </h3>
-              <div style={{ display: 'flex', gap: '1.5rem' }}>
-                {socials.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileHover={{
-                      y: -8,
-                      scale: 1.1,
-                      backgroundColor: 'var(--primary-color)',
-                      color: 'white',
-                      boxShadow: '0 15px 30px -10px rgba(0, 242, 255, 0.5)'
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                    style={{
-                      width: '56px',
-                      height: '56px',
-                      background: 'var(--glass-bg)',
-                      borderRadius: '16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-color)',
-                      border: '1px solid var(--glass-border)',
-                      transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-                    }}
-                    title={social.label}
-                  >
-                    {social.icon}
-                  </motion.a>
-                ))}
-              </div>
-            </motion.div>
+
           </motion.div>
 
           {/* Contact Form Column */}

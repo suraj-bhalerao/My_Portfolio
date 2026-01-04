@@ -37,7 +37,7 @@ const Stats = ({ githubUsername, leetcodeUsername }) => {
 
           <div className="glass-card" style={{
             padding: '3rem',
-            maxWidth: '1100px',
+            maxWidth: '1200px',
             margin: '0 auto',
             boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
             border: '1px solid var(--glass-border)',
@@ -64,7 +64,11 @@ const Stats = ({ githubUsername, leetcodeUsername }) => {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '2.5rem' }}>
                   <div style={{ padding: '10px', background: 'rgba(255, 192, 30, 0.1)', borderRadius: '12px', color: '#ffc01e' }}>
-                    <Trophy size={24} />
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
+                      <path d="M12 13h7.5" />
+                      <path d="M9.424 7.268l4.999 -4.999" />
+                      <path d="M16.633 16.644l-2.402 2.415a3.189 3.189 0 0 1 -4.524 0l-3.77 -3.787a3.223 3.223 0 0 1 0 -4.544l3.77 -3.787a3.189 3.189 0 0 1 4.524 0l2.302 2.313" />
+                    </svg>
                   </div>
                   <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>LeetCode</h3>
                 </div>

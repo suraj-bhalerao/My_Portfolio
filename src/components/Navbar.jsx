@@ -11,7 +11,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener('scroll', handleScroll);
-    
+
     // Check system preference or saved theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
@@ -37,18 +37,18 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}
-         style={{ 
-           position: 'fixed', 
-           top: 0, 
-           left: 0, 
-           right: 0, 
-           zIndex: 1000,
-           padding: scrolled ? '1rem 2rem' : '1.5rem 2rem',
-           background: scrolled ? 'var(--glass-bg)' : 'transparent',
-           backdropFilter: scrolled ? 'blur(10px)' : 'none',
-           borderBottom: scrolled ? '1px solid var(--glass-border)' : 'none',
-           transition: 'all 0.3s ease'
-         }}>
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000,
+        padding: scrolled ? '1rem 2rem' : '1.5rem 2rem',
+        background: scrolled ? 'var(--glass-bg)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(10px)' : 'none',
+        borderBottom: scrolled ? '1px solid var(--glass-border)' : 'none',
+        transition: 'all 0.3s ease'
+      }}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <a href="#" className="logo" style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--text-color)' }}>
           Suraj<span style={{ color: 'var(--primary-color)' }}>.dev</span>
@@ -57,12 +57,12 @@ const Navbar = () => {
         {/* Desktop Menu */}
         <div className="desktop-menu" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
+            <a
+              key={link.name}
               href={link.href}
-              style={{ 
-                color: 'var(--text-color)', 
-                opacity: 0.8, 
+              style={{
+                color: 'var(--text-color)',
+                opacity: 0.8,
                 transition: 'color 0.3s',
                 fontSize: '0.9rem',
                 fontWeight: 500
@@ -73,8 +73,8 @@ const Navbar = () => {
               {link.name}
             </a>
           ))}
-          
-          <button 
+
+          <button
             onClick={toggleTheme}
             style={{
               background: 'var(--glass-bg)',
@@ -96,8 +96,8 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="mobile-toggle" style={{ display: 'none', alignItems: 'center', gap: '1rem' }}>
-          <button 
+        <div className="mobile-toggle" style={{ display: 'none', alignItems: 'center', gap: '2rem' }}>
+          <button
             onClick={toggleTheme}
             style={{
               background: 'none',
@@ -108,7 +108,7 @@ const Navbar = () => {
           >
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          <button 
+          <button
             onClick={() => setIsOpen(!isOpen)}
             style={{ background: 'none', border: 'none', color: 'var(--text-color)', cursor: 'pointer' }}
           >
@@ -119,7 +119,7 @@ const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div 
+        <div
           onClick={() => setIsOpen(false)}
           style={{
             position: 'fixed',
@@ -149,12 +149,12 @@ const Navbar = () => {
         gap: '2rem'
       }}>
         {navLinks.map((link) => (
-          <a 
-            key={link.name} 
+          <a
+            key={link.name}
             href={link.href}
             onClick={() => setIsOpen(false)}
-            style={{ 
-              color: 'var(--text-color)', 
+            style={{
+              color: 'var(--text-color)',
               fontSize: '1.2rem',
               fontWeight: 500
             }}

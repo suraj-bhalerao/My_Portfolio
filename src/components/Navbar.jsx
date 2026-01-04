@@ -96,7 +96,7 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="mobile-toggle" style={{ display: 'none', alignItems: 'center', gap: '2rem' }}>
+        <div className="mobile-toggle" style={{ display: 'none', alignItems: 'center', gap: '2.5rem' }}>
           <button
             onClick={toggleTheme}
             style={{

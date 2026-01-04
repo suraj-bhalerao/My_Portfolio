@@ -151,12 +151,6 @@ ul {
 }
 
 @media (max-width: 768px) {
-  .hero-section {
-    min-height: auto;
-    padding-top: 160px;
-    padding-bottom: 60px;
-  }
-  
   .blob {
     width: 300px;
     height: 300px;
@@ -185,6 +179,13 @@ ul {
 @media (max-width: 768px) {
   .section {
     padding: 40px 0;
+  }
+
+  .hero-section {
+    min-height: auto !important;
+    padding-top: 180px !important;
+    padding-bottom: 60px !important;
+    display: block !important; /* Ensure padding-top works reliably on mobile */
   }
 
   .grid-2 {

@@ -183,7 +183,7 @@ ul {
 
   .hero-section {
     min-height: auto !important;
-    padding-top: 125px !important;
+    padding-top: 90px !important;
     padding-bottom: 60px !important;
     display: block !important; /* Ensure padding-top works reliably on mobile */
   }

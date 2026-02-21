@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const useGitHub = (username) => {
   const [repos, setRepos] = useState([]);
@@ -6,16 +7,21 @@ const useGitHub = (username) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!username) return;
+    if (!username) {
+      setLoading(false);
+      return;
+    }
 
     const fetchRepos = async () => {
       try {
-        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+        const response = await fetch(`${API_BASE_URL}/api/github/repos/${username}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch repos');
+          const errorPayload = await response.json().catch(() => ({}));
+          throw new Error(errorPayload.message || 'Failed to fetch repos.');
         }
         const data = await response.json();
         setRepos(data);
+        setError(null);
         setLoading(false);
       } catch (err) {
         setError(err.message);

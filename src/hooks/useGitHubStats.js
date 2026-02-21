@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const useGitHubStats = (username) => {
   const [stats, setStats] = useState(null);
@@ -6,16 +7,21 @@ const useGitHubStats = (username) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!username) return;
+    if (!username) {
+      setLoading(false);
+      return;
+    }
 
     const fetchStats = async () => {
       try {
-        const response = await fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`);
+        const response = await fetch(`${API_BASE_URL}/api/stats/github/${username}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch stats');
+          const errorPayload = await response.json().catch(() => ({}));
+          throw new Error(errorPayload.message || 'Failed to fetch GitHub stats.');
         }
         const data = await response.json();
         setStats(data);
+        setError(null);
         setLoading(false);
       } catch (err) {
         setError(err.message);

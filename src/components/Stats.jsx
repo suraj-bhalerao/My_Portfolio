@@ -1,231 +1,182 @@
 import React from 'react';
-import { Github, Trophy, Activity, Info } from 'lucide-react';
+import { Activity, Github } from 'lucide-react';
 import useLeetCode from '../hooks/useLeetCode';
 import useGitHubStats from '../hooks/useGitHubStats';
 
+const contributionLevelColors = {
+  dark: ['#1f2937', '#0f766e', '#14b8a6', '#f59e0b', '#f97316'],
+  light: ['#d1d5db', '#99f6e4', '#5eead4', '#fcd34d', '#fb923c'],
+};
+
+const defaultLeetStats = {
+  totalSolved: 0,
+  easySolved: 0,
+  totalEasy: 0,
+  mediumSolved: 0,
+  totalMedium: 0,
+  hardSolved: 0,
+  totalHard: 0,
+  ranking: '---',
+  totalQuestions: 0,
+};
+
+const getContributionColor = (level = 0) => {
+  const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+  return contributionLevelColors[theme][level] || contributionLevelColors[theme][0];
+};
+
+const formatNumber = (value) => new Intl.NumberFormat('en-US').format(value || 0);
+const formatRank = (value) => {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) && numeric > 0 ? formatNumber(numeric) : '---';
+};
+
 const Stats = ({ githubUsername, leetcodeUsername }) => {
-  const { stats: leetStats, loading: leetLoading } = useLeetCode(leetcodeUsername);
-  const { stats: gitStats, loading: gitLoading } = useGitHubStats(githubUsername);
+  const { stats: leetStats, loading: leetLoading, error: leetError } = useLeetCode(leetcodeUsername);
+  const { stats: gitStats, loading: gitLoading, error: gitError } = useGitHubStats(githubUsername);
 
-  const fallbackLeet = {
-    totalSolved: 0,
-    easySolved: 0,
-    totalEasy: 0,
-    mediumSolved: 0,
-    totalMedium: 0,
-    hardSolved: 0,
-    totalHard: 0,
-    ranking: '---'
-  };
-
-  const displayLeet = leetStats && leetStats.status !== 'error' ? leetStats : fallbackLeet;
-
-  const getContributionColor = (level) => {
-    const colors = {
-      dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-      light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
-    };
-    const theme = document.documentElement.getAttribute('data-theme') || 'dark';
-    return colors[theme][level] || colors[theme][0];
-  };
+  const displayLeet = leetStats || defaultLeetStats;
+  const solvedRatio =
+    displayLeet.totalQuestions > 0 ? displayLeet.totalSolved / displayLeet.totalQuestions : 0;
 
   return (
     <section id="stats" className="section" style={{ position: 'relative' }}>
       <div className="container">
-        <div>
-          <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>Coding Performance</h2>
+        <h2 className="gradient-text" style={{ fontSize: '2.5rem', marginBottom: '3rem', textAlign: 'center' }}>
+          Coding Performance
+        </h2>
 
-          <div className="glass-card" style={{
-            padding: '3rem',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.3)',
-            border: '1px solid var(--glass-border)',
-            position: 'relative',
-            overflow: 'hidden'
-          }}>
-            {/* Decorative background glow */}
-            <div style={{
-              position: 'absolute',
-              top: '-100px',
-              right: '-100px',
-              width: '300px',
-              height: '300px',
-              background: 'var(--primary-color)',
-              opacity: 0.05,
-              filter: 'blur(100px)',
-              borderRadius: '50%',
-              pointerEvents: 'none'
-            }} />
+        <div className="glass-card" style={{ padding: '3rem', maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '2rem' }}>
+                <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>LeetCode</h3>
+                {leetLoading ? <small style={{ color: 'var(--text-muted)' }}>Loading...</small> : null}
+              </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem' }}>
+              {leetError ? (
+                <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{leetError}</p>
+              ) : null}
 
-              {/* LeetCode Section */}
-              <div style={{ position: 'relative', minHeight: '400px' }}>
-                {leetLoading && (
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    background: 'var(--card-bg)',
-                    backdropFilter: 'blur(5px)',
-                    zIndex: 2,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: '20px'
-                  }}>
-                    <div className="loader">Loading Stats...</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '2rem' }}>
+                <div style={{ position: 'relative', width: '130px', height: '130px' }}>
+                  <svg width="130" height="130" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="54" fill="none" stroke="var(--glass-border)" strokeWidth="8" />
+                    <circle
+                      cx="60"
+                      cy="60"
+                      r="54"
+                      fill="none"
+                      stroke="var(--primary-color)"
+                      strokeWidth="8"
+                      strokeDasharray="339.29"
+                      strokeDashoffset={339.29 - solvedRatio * 339.29}
+                      strokeLinecap="round"
+                      transform="rotate(-90 60 60)"
+                    />
+                  </svg>
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <div style={{ fontSize: '1.5rem', fontWeight: 700 }}>{displayLeet.totalSolved}</div>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Solved</div>
                   </div>
-                )}
+                </div>
+
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '2.5rem' }}>
-                    <div style={{ padding: '10px', background: 'rgba(255, 192, 30, 0.1)', borderRadius: '12px', color: '#ffc01e' }}>
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="24" height="24">
-                        <path d="M12 13h7.5" />
-                        <path d="M9.424 7.268l4.999 -4.999" />
-                        <path d="M16.633 16.644l-2.402 2.415a3.189 3.189 0 0 1 -4.524 0l-3.77 -3.787a3.223 3.223 0 0 1 0 -4.544l3.77 -3.787a3.189 3.189 0 0 1 4.524 0l2.302 2.313" />
-                      </svg>
-                    </div>
-                    <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>LeetCode</h3>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>Global Rank</div>
+                  <div style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--primary-color)' }}>
+                    #{formatRank(displayLeet.ranking)}
                   </div>
-
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '2.5rem' }}>
-                    <div style={{ position: 'relative', width: '130px', height: '130px' }}>
-                      <svg width="130" height="130" viewBox="0 0 120 120">
-                        <circle cx="60" cy="60" r="54" fill="none" stroke="var(--glass-border)" strokeWidth="8" />
-                        <circle
-                          cx="60" cy="60" r="54" fill="none" stroke="var(--primary-color)" strokeWidth="8"
-                          strokeDasharray="339.29"
-                          strokeDashoffset={339.29 - (displayLeet.totalSolved / (displayLeet.totalQuestions || 2000)) * 339.29}
-                          strokeLinecap="round"
-                          transform="rotate(-90 60 60)"
-                          style={{ filter: 'drop-shadow(0 0 5px var(--primary-color))' }}
-                        />
-                      </svg>
-                      <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center' }}>
-                        <div style={{ fontSize: '1.8rem', fontWeight: '800', color: 'var(--text-color)' }}>{displayLeet.totalSolved}</div>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Solved</div>
-                      </div>
-                    </div>
-
-                    <div style={{ flex: 1 }}>
-                      <div style={{ marginBottom: '10px' }}>
-                        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '4px' }}>Global Rank</div>
-                        <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>#{displayLeet.ranking}</div>
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                        <Activity size={14} /> Active Solver
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: 'grid', gap: '1.2rem' }}>
-                    {[
-                      { label: 'Easy', solved: displayLeet.easySolved, total: displayLeet.totalEasy, color: '#00b8a3' },
-                      { label: 'Medium', solved: displayLeet.mediumSolved, total: displayLeet.totalMedium, color: '#ffc01e' },
-                      { label: 'Hard', solved: displayLeet.hardSolved, total: displayLeet.totalHard, color: '#ff375f' }
-                    ].map((item) => (
-                      <div key={item.label}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', fontSize: '0.9rem' }}>
-                          <span style={{ color: item.color, fontWeight: '600' }}>{item.label}</span>
-                          <span style={{ color: 'var(--text-color)', fontWeight: '500' }}>{item.solved}<span style={{ color: 'var(--text-muted)', fontWeight: 'normal' }}>/{item.total}</span></span>
-                        </div>
-                        <div style={{ height: '8px', background: 'var(--glass-border)', borderRadius: '4px', overflow: 'hidden' }}>
-                          <div
-                            style={{
-                              height: '100%',
-                              width: `${(item.solved / item.total) * 100}%`,
-                              background: item.color,
-                              borderRadius: '4px',
-                              boxShadow: `0 0 10px ${item.color}44`
-                            }}
-                          />
-                        </div>
-                      </div>
-                    ))}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '8px', fontSize: '0.85rem' }}>
+                    <Activity size={14} />
+                    Active Solver
                   </div>
                 </div>
               </div>
 
-              {/* GitHub Section */}
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '2.5rem' }}>
-                  <div style={{ padding: '10px', background: 'rgba(0, 242, 255, 0.1)', borderRadius: '12px', color: 'var(--primary-color)' }}>
-                    <Github size={24} />
-                  </div>
-                  <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>GitHub Activity</h3>
-                </div>
-
-                <div style={{
-                  width: '100%',
-                  overflowX: 'auto',
-                  padding: '10px 0',
-                  WebkitOverflowScrolling: 'touch',
-                  marginBottom: '2rem'
-                }}>
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(53, 1fr)',
-                    gap: '3px',
-                    width: '100%',
-                    minWidth: '700px',
-                    aspectRatio: '7/1'
-                  }}>
-                    {gitStats && gitStats.contributions ? (
-                      gitStats.contributions.slice(-371).map((day, index) => (
-                        <div
-                          key={index}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            background: getContributionColor(day.level),
-                            borderRadius: '2px',
-                            cursor: 'pointer',
-                            transition: 'background 0.3s'
-                          }}
-                          title={`${day.date}: ${day.count} contributions`}
-                        />
-                      ))
-                    ) : (
-                      Array.from({ length: 371 }).map((_, i) => (
-                        <div key={i} style={{ width: '100%', height: '100%', background: 'var(--glass-bg)', borderRadius: '2px' }}></div>
-                      ))
-                    )}
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    Last 12 months of contributions
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                    <span>Less</span>
-                    {[0, 1, 2, 3, 4].map(level => (
-                      <div key={level} style={{ width: '10px', height: '10px', background: getContributionColor(level), borderRadius: '2px' }}></div>
-                    ))}
-                    <span>More</span>
-                  </div>
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1.5rem' }}>
-                  <div style={{ padding: '1.5rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--primary-color)', marginBottom: '4px' }}>
-                      {gitStats?.totalContributions || '1,240'}
+              <div style={{ display: 'grid', gap: '1rem' }}>
+                {[
+                  { label: 'Easy', solved: displayLeet.easySolved, total: displayLeet.totalEasy, color: '#14b8a6' },
+                  { label: 'Medium', solved: displayLeet.mediumSolved, total: displayLeet.totalMedium, color: '#f59e0b' },
+                  { label: 'Hard', solved: displayLeet.hardSolved, total: displayLeet.totalHard, color: '#ef4444' },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                      <span style={{ color: item.color, fontWeight: 600 }}>{item.label}</span>
+                      <span>
+                        {item.solved}/{item.total}
+                      </span>
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Total Commits</div>
-                  </div>
-                  <div style={{ padding: '1.5rem', background: 'var(--glass-bg)', borderRadius: '16px', border: '1px solid var(--glass-border)', textAlign: 'center' }}>
-                    <div style={{ fontSize: '1.5rem', fontWeight: '800', color: 'var(--secondary-color)', marginBottom: '4px' }}>
-                      {gitStats?.currentStreak || '42'}
+                    <div style={{ height: '8px', background: 'var(--glass-border)', borderRadius: '6px' }}>
+                      <div
+                        style={{
+                          height: '100%',
+                          width: `${item.total > 0 ? (item.solved / item.total) * 100 : 0}%`,
+                          background: item.color,
+                          borderRadius: '6px',
+                        }}
+                      />
                     </div>
-                    <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Day Streak</div>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '2rem' }}>
+                <Github size={22} />
+                <h3 style={{ fontSize: '1.5rem', color: 'var(--text-color)' }}>GitHub Activity</h3>
+                {gitLoading ? <small style={{ color: 'var(--text-muted)' }}>Loading...</small> : null}
+              </div>
+
+              {gitError ? (
+                <p style={{ color: '#ef4444', marginBottom: '1rem' }}>{gitError}</p>
+              ) : null}
+
+              <div style={{ width: '100%', overflowX: 'auto', marginBottom: '1.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(53, 1fr)', gap: '3px', minWidth: '700px' }}>
+                  {(gitStats?.contributions?.length
+                    ? gitStats.contributions.slice(-371)
+                    : Array.from({ length: 371 }, (_, index) => ({ date: `day-${index}`, count: 0, level: 0 }))
+                  ).map((day, index) => (
+                    <div
+                      key={`${day.date}-${index}`}
+                      title={`${day.date}: ${day.count} contributions`}
+                      style={{ width: '100%', aspectRatio: '1 / 1', borderRadius: '2px', background: getContributionColor(day.level) }}
+                    />
+                  ))}
                 </div>
               </div>
 
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem' }}>
+                <div style={{ padding: '1.2rem', background: 'var(--card-bg)', borderRadius: '14px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--primary-color)' }}>
+                    {formatNumber(gitStats?.totalContributions)}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Year Contributions</div>
+                </div>
+
+                <div style={{ padding: '1.2rem', background: 'var(--card-bg)', borderRadius: '14px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--secondary-color)' }}>
+                    {formatNumber(gitStats?.totalCommitContributions)}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Commit Contributions</div>
+                </div>
+
+                <div style={{ padding: '1.2rem', background: 'var(--card-bg)', borderRadius: '14px', textAlign: 'center' }}>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--accent-color)' }}>
+                    {formatNumber(gitStats?.currentStreak)}
+                  </div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Current Streak</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -1,20 +1,59 @@
 # My_Portfolio
 
-Personal portfolio website built with modern frontend tooling.
+React + Vite portfolio with a Node/Express backend for live coding stats and enquiry storage in Excel.
 
-## Overview
+## Features
 
-This project is part of the Practice workspace and is maintained for learning, experimentation, and incremental improvements.
+- Live LeetCode stats (total solved, difficulty split, ranking)
+- Live GitHub contribution graph, commit contributions, and current streak
+- Enquiry form persisted to `enquiries.xlsx` on backend
+- Curated projects with dynamic GitHub stars/forks/language
+- Responsive modern UI with theme toggle
 
-## Current Status
+## Setup
 
-- README added on 2026-02-20
-- Basic project structure present
-- Detailed setup documentation can be expanded over time
+1. Install dependencies:
+```bash
+npm install
+```
 
-## Suggested Next Steps
+2. Create env file:
+```bash
+copy .env.example .env
+```
 
-- Add prerequisites and installation steps
-- Document run/build commands
-- Add sample inputs/outputs or screenshots where relevant
+3. Add your GitHub token in `.env`:
+```env
+GITHUB_TOKEN=your_real_token
+```
 
+## Run
+
+- Frontend only:
+```bash
+npm run dev
+```
+
+- Backend only:
+```bash
+npm run server
+```
+
+- Frontend + backend together:
+```bash
+npm run dev:full
+```
+
+## Backend Data Output
+
+Each contact form submit appends one row in:
+
+- `enquiries.xlsx` (sheet: `Enquiries`)
+
+Columns:
+
+- `timestamp`
+- `name`
+- `email`
+- `subject`
+- `message`

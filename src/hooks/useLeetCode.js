@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../config';
 
 const useLeetCode = (username) => {
   const [stats, setStats] = useState(null);
@@ -6,20 +7,21 @@ const useLeetCode = (username) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!username) return;
+    if (!username) {
+      setLoading(false);
+      return;
+    }
 
     const fetchStats = async () => {
       try {
-        // Using a public proxy for LeetCode API to avoid CORS
-        const response = await fetch(`https://leetcode-stats-api.herokuapp.com/${username}`);
+        const response = await fetch(`${API_BASE_URL}/api/stats/leetcode/${username}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch stats');
+          const errorPayload = await response.json().catch(() => ({}));
+          throw new Error(errorPayload.message || 'Failed to fetch LeetCode stats.');
         }
         const data = await response.json();
-        if (data.status === 'error') {
-          throw new Error(data.message);
-        }
         setStats(data);
+        setError(null);
         setLoading(false);
       } catch (err) {
         setError(err.message);

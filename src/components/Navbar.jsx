@@ -30,13 +30,14 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Stats', href: '#stats' },
     { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/80 backdrop-blur-md py-4' : 'bg-transparent py-6'}`}
+    <nav
       style={{
         position: 'fixed',
         top: 0,
@@ -44,7 +45,7 @@ const Navbar = () => {
         right: 0,
         zIndex: 1000,
         padding: scrolled ? '1rem 2rem' : '1.5rem 2rem',
-        background: scrolled ? 'var(--glass-bg)' : 'transparent',
+        background: scrolled ? 'var(--card-bg)' : 'transparent',
         backdropFilter: scrolled ? 'blur(10px)' : 'none',
         borderBottom: scrolled ? '1px solid var(--glass-border)' : 'none',
         transition: 'all 0.3s ease'

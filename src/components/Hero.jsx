@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Github, Linkedin, Mail, ArrowRight, Code2 } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 import profileImage from '../assets/profile.png';
 import resumeFile from '../assets/Resume.pdf';
-import useLeetCode from '../hooks/useLeetCode';
 
-const Hero = ({ leetcodeUsername }) => {
+const Hero = () => {
   const [titleIndex, setTitleIndex] = useState(0);
-  const { stats: leetStats } = useLeetCode(leetcodeUsername);
 
   const titles = [
     'Automation Test Engineer',
@@ -99,7 +97,7 @@ const Hero = ({ leetcodeUsername }) => {
                       <path d="M16.633 16.644l-2.402 2.415a3.189 3.189 0 0 1 -4.524 0l-3.77 -3.787a3.223 3.223 0 0 1 0 -4.544l3.77 -3.787a3.189 3.189 0 0 1 4.524 0l2.302 2.313" />
                     </svg>
                   ),
-                  href: "https://leetcode.com/Suraj_b_27",
+                  href: "https://leetcode.com/SurajB_7176",
                   title: "LeetCode"
                 }
               ].map((social, i) => (

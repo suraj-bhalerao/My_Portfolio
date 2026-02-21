@@ -1,29 +1,28 @@
 import React from 'react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
 import About from './components/About';
+import Contact from './components/Contact';
 import Experience from './components/Experience';
+import Hero from './components/Hero';
+import Navbar from './components/Navbar';
 import Projects from './components/Projects';
 import Stats from './components/Stats';
-import Contact from './components/Contact';
 
 function App() {
-  // Replace with your actual usernames
-  const githubUsername = 'suraj-bhalerao'; 
-  const leetcodeUsername = 'Suraj_b_27'; 
+  const githubUsername = 'suraj-bhalerao';
+  const leetcodeUsername = 'SurajB_7176';
 
   return (
     <div className="app">
       <Navbar />
-      <Hero leetcodeUsername={leetcodeUsername} />
+      <Hero />
       <About />
       <Experience />
       <Projects username={githubUsername} />
       <Stats githubUsername={githubUsername} leetcodeUsername={leetcodeUsername} />
       <Contact />
-      
+
       <footer style={{ textAlign: 'center', padding: '2rem', borderTop: '1px solid var(--glass-border)', color: '#888' }}>
-        <p>© {new Date().getFullYear()} Suraj Bhalerao. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Suraj Bhalerao. All rights reserved.</p>
       </footer>
     </div>
   );
